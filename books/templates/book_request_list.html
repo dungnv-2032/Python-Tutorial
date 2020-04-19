@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="product_listing_main homepage_carousel row" style="padding-bottom: 15px;">
+    <div class="row" style="text-align: center;">
+        <h3>List Book Request</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover" style="background: white;border: solid 1px #a1a1a1;">
+                <thead>
+                    <tr>
+                        <th scope="col">Sent time</th>
+                        <th scope="col">Book Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book_request in book_requests %}
+                    <tr>
+                        <th scope="row">{{ book_request.created_at }}</th>
+                        <td>{{ book_request.name }}</td>
+                        <td>{{ book_request.price }}</td>
+                        <td>{{ book_request.category.name}}</td>
+                        <td>{{ book_request.note }}</td>
+                        <td>{{ book_request.get_status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="{% url 'book:add-book-request' %}" type="button" class="btn btn-primary">Add Book Request</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

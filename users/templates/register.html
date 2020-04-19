@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+
+<div id="template" class="customer customer__register">
+    <div id="customer">
+        <!-- Create Customer -->
+        <div id="create-customer">
+            <div class="template_header">
+                <h2 class="page_heading">Create Account</h2>
+            </div>
+
+            <div class="template_content">
+                <div class="form-horizontal">
+                    <form method="post" action="{% url 'user:register' %}" id="create_customer" accept-charset="UTF-8">
+                        {% csrf_token %}
+
+                        <div id="last_name" class="clearfix form-group">
+                            <label for="last_name" class="login control-label col-sm-4">Username</label>
+                            <div class="col-sm-4">
+                                <input type="text" value="" name="username" id="username" class="form-control" size="30" minlength="4" maxlength="50" required>
+                            </div>
+                        </div>
+
+                        <div id="email" class="clearfix form-group">
+                            <label for="email" class="login control-label col-sm-4">Email Address</label>
+                            <div class="col-sm-4">
+                                <input type="email" value="" name="email" id="email" class="form-control" size="30">
+                            </div>
+                        </div>
+
+                        <div id="password1" class="clearfix form-group">
+                            <label for="password1" class="login control-label col-sm-4">Password</label>
+                            <div class="col-sm-4">
+                                <input type="password" value="" name="password1" id="password1" class="form-control password" size="30">
+                            </div>
+                        </div>
+
+                        <div id="password2" class="clearfix form-group">
+                            <label for="password2" class="login control-label col-sm-4">Re-Password</label>
+                            <div class="col-sm-4">
+                                <input type="password" value="" name="password2" id="password2" class="form-control password" size="30">
+                            </div>
+                        </div>
+                        {% if errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <div id="errors">
+                                <div class="inner">
+                                    <p>There were some errors in the information you entered. Please correct the following:</p>
+                                    {{ errors }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-4">
+                                <input class="btn btn-primary" type="submit" value="Create">
+                                <span class="note">or <a href="{% url 'user:login' %}">Login</a></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /#create-customer -->
+    </div>
+</div>
+
+{% endblock %}

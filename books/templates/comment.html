@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1" id="list_comment">
+            <div class="page-header">
+                <h3 class="reviews">List Comment</h3>
+            </div>
+            <div class="comment-tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#comments-logout" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Comments</h4></a></li>
+                    <li><a href="#add-comment" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Add comment</h4></a></li>
+                </ul>
+                <div class="tab-content" style="margin-top:30px;">
+                    <div class="tab-pane active" id="comments-logout">
+                        <ul class="media-list">
+                            {% for comment in book.book_comment_set.all %}
+                            <li class="media">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object img-circle" src="{{ '/media/images/default-avatar.jpg' }}" alt="profile">
+                                </a>
+                                <div class="media-body">
+                                    <div class="well well-lg">
+                                        <h4 class="media-heading text-uppercase reviews">{{comment.user}} </h4>
+                                        <ul class="media-date text-uppercase reviews list-inline">
+                                            <li class="dd">{{comment.created_at}}</li>
+                                        </ul>
+                                        <p class="media-comment">
+                                            {{ comment.comment }}
+                                        </p>
+{#                                        <a class="btn btn-info btn-circle text-uppercase" data-toggle="collapse" href="#replyParent{{ comment.id }}" id="reply{{ comment.id }}">Reply</a>#}
+{#                                        <a class="btn btn-warning btn-circle text-uppercase" data-toggle="collapse" href="#replyOne{{comment.id }}">2 comments</a>#}
+                                    </div>
+                                </div>
+                                <div class="collapse multi-collapse" id="replyParent{{ comment.id }}" style="margin-bottom: 20px;">
+                                    <ul class="media-list">
+                                        <li class="media media-replied">
+                                            <div class="row">
+                                            <div class="form-group">
+                                                <label for="comment" class="col-sm-1 col-sm-offset-1 control-label">Reply</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" name="comment" id="addComment" rows="5" required></textarea>
+                                                </div>
+                                            </div>
+                                                </div>
+                                            <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button class="btn btn-success btn-circle" type="submit" id="submitComment"> Send Reply</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="collapse  multi-collapse col-sm-offset-1" id="replyOne{{ comment.id }}">
+                                    <ul class="media-list">
+                                        <li class="media media-replied">
+                                            <a class="pull-left" href="#">
+                                                <img class="media-object img-circle" src="{{ '/media/images/default-avatar.jpg' }}" alt="profile">
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="well well-lg">
+                                                    <h4 class="media-heading text-uppercase reviews"> The Hipster</h4>
+                                                    <ul class="media-date text-uppercase reviews list-inline">
+                                                        <li class="dd">22</li>
+                                                        <li class="mm">09</li>
+                                                        <li class="aaaa">2014</li>
+                                                    </ul>
+                                                    <p class="media-comment">
+                                                        Nice job Maria.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    <div class="tab-pane" id="add-comment">
+                        <form  method="post" action="{% url 'book:add-book-comment' %}"class="form-horizontal">
+                            {% csrf_token %}
+                            <input type="hidden" name="book_id" value="{{ book.id }}" />
+                            <div class="form-group">
+                                <label for="comment" class="col-sm-2 control-label">Comment</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="comment" id="addComment" rows="5" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment">Summit comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"></script>

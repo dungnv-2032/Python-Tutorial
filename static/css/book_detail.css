@@ -1,0 +1,59 @@
+    .button.is-rounded {
+        border-radius: 5px;
+        padding-left: 1em;
+        padding-right: 1em;
+        text-decoration: none;
+    }
+
+    .button.is-danger {
+        background-color: #ff3860;
+        border-color: transparent;
+        color: #fff;
+    }
+     .button.is-danger.is-hovered, .button.is-danger:hover {
+        background-color: #ca2d4d;
+        border-color: transparent;
+        color: #fff;
+    }
+
+    #product_activity li a span {
+        width: 24px;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .subscribeBook {
+        padding: 8px 20px 8px 20px !important;
+    }
+
+    .likeBook {
+        padding: 8px 20px 8px 20px !important;
+        margin-left: 10px;
+        text-transform: none;
+    }
+    .readBook {
+        padding: 8px 20px 8px 20px !important;
+        margin-left: 10px;
+        text-transform: none;
+        width: 100px;
+        height: 35px;
+        border-radius: 26px !important;
+        background: #28a745;
+        color: white;
+        text-align: center;
+    }
+    .rateBook {
+        padding: 8px 20px 8px 20px !important;
+        margin-left: 10px;
+        text-transform: none;
+        width: 100px;
+        height: 35px;
+        border-radius: 26px !important;
+        background: yellow;
+        color: black;
+        text-align: center;
+    }
+    .media-object{
+        height: 100px;
+        width: 100px;
+    }

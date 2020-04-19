@@ -1,0 +1,70 @@
+{% extends 'base_admin.html' %}
+{% block content %}
+
+<div class="product_listing_main homepage_carousel row" style="padding-bottom: 15px;">
+    <div class="row" style="text-align: center;">
+        <h3>Add Book</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form method="post" action="{% url 'admin:admin-add-book' %}" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Book name</label>
+                    <input type="text" value="{{form.name.value}}" name="name" class="form-control"  placeholder="Enter book name" required="true">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" value="{{form.price.value}}" class="form-control" name="price" id="price" placeholder="Enter book price" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Number Page</label>
+                    <input type="number" value="{{form.number_page.value}}" class="form-control" name="number_page" id="number_page" placeholder="Enter Number Page" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Author</label>
+                    <input type="text" value="{{form.author.value}}" class="form-control" name="author" id="author" placeholder="Enter Author" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Book Category</label>
+                    <select class="form-control" id="category" name="category">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if form.category.value == category.id %} selected {% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label for="validationTextarea">Description</label>
+                        <textarea rows="5" name="description" class="form-control is-invalid" id="validationTextarea" placeholder="Please enter descrption." >{{form.description.value}}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label for="validationTextarea">Publish Date</label>
+                        <input value="{{form.publish_date.value}}" type="date" class="form-control" name="publish_date" id="publish_date" placeholder="Enter Select Date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group-prepend">
+                        <label for="image">Upload Book Image</label>
+                  </div>
+                  <div class="custom-file">
+                      {{ form.image }}
+                  </div>
+                </div>
+
+                {% include 'show_form_errors.html' with form=form only %}
+
+                <div class="form-group form-check"></div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{% url 'admin:admin-book-list' %}" type="button" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
+
+{% endblock %}

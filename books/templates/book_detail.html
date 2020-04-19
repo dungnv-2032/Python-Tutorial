@@ -1,0 +1,145 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+<link href="{% static 'css/book_detail.css' %}" rel="stylesheet" type="text/css" media="all" />
+<ul class="breadcrumb">
+    <li><a href="{% url 'book:index' %}" class="homepage-link" title="Back to the frontpage">Home</a></li>
+    <li><span class="page-title">{{ book.name }}</span></li>
+</ul>
+<div id="main_content" class="col-sm-12" style="padding-bottom: 15px;">
+
+    <div class="product-scope">
+
+        <div class="product_wrap">
+
+            <div class="row">
+
+                <div class="col-sm-6 col-lg-5 product_images">
+
+                    <img id="elevatezoom_big"  src="{{ book.image.url}}" data-zoom-image="{{ book.image.url}}" alt="{{ book.name }}">
+
+                </div>
+
+                <div class="col-sm-6 col-lg-7">
+                    <div itemprop="name" class="product_name">{{ book.name }}</div>
+
+                        <div class="options clearfix">
+                            <div id="product_price">
+                                <p class="price product-price"> Price: <span class="money money-sale" >{{ book.price }}đ</span></p>
+                            </div>
+
+                            <div id="product_activity" style="padding-top: 15px;">
+                                {% csrf_token %}
+                                <a id="subscribe_book" href="javascript:void(0);" class="button is-danger is-rounded btn-subscribe subscribeBook" data-page="index" data-id="{{ book.id }}">
+                                    <span class="fa fa-heart"></span> <span id="follow_status">{{ follow_status }}</span>
+                                </a>
+                                <a id="like_book" href="javascript:void(0);" class="button btn-primary is-rounded btn-subscribe likeBook" data-page="index" data-id="{{ book.id }}">
+                                    <span class="fa fa-thumbs-up"></span> <span id="like_status">{{ like_status }}</span>
+                                </a>
+                                <select id="read_book" data-id="{{ book.id }}" class="selectpicker readBook" data-style="btn-success">
+                                    {% for key, read_status in book.READ_STATUS %}
+                                        <option value="{{key}}" {% if key == book_history.read_status %} selected="true" {% endif %}>{{read_status}}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select id="rate_book" data-id="{{ book.id }}" class="selectpicker rateBook" data-style="btn-success">
+                                    {% for key, rate_status in book.RATE %}
+                                        <option value="{{key}}" {% if key == book_history.rate %} selected="true" {% endif %}>{{ rate_status }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="product_details">
+                            <div class="product_type">Number of pages: <span style="color: #060606;">{{ book.number_page}}</span></div>
+                            <div class="product_type">Category: <a href="#" title="{{ book.name }}">{{ book.category.name }}</a></div>
+                            <div class="product_vendor">Author: <a href="#" title="BOOKS">{{ book.author }}</a></div>
+                            <div class="product_type">Publish date: <span style="color: #060606;">{{ book.publish_date }}</span>
+                                <div>
+                                </div>
+
+                                <div id="product_description" class="rte" itemprop="description">
+                                    <h4>Description:</h4>
+                                    <p>{{ book.description }}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% include 'comment.html' %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var el = document.getElementsByName("csrfmiddlewaretoken");
+    csrf_value = el[0].getAttribute("value");
+    $('#subscribe_book').click(function () {
+        $.ajax({
+            url: '{% url 'book:book-follow' %}',
+            type: 'POST',
+            data: {
+                'book_id': $(this).attr('data-id'), 'csrfmiddlewaretoken': csrf_value
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    $('#follow_status').text(data.follow_status);
+                }
+            }
+        });
+    });
+
+    $('#like_book').click(function () {
+        $.ajax({
+            url: '{% url 'book:book-like' %}',
+            type: 'POST',
+            data: {
+                'book_id': $(this).attr('data-id'),
+                'csrfmiddlewaretoken': csrf_value
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    $('#like_status').text(data.like_status);
+                }
+            }
+        });
+    });
+
+    $('#read_book').on('change', function () {
+        $.ajax({
+            url: '{% url 'book:book-read' %}',
+            type: 'POST',
+            data: {
+                'book_id': $(this).attr('data-id'), 
+                'csrfmiddlewaretoken': csrf_value,
+                'read_status': $(this).val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    $(this).val(data.read_status);
+                }
+            }
+        });
+    });
+     $('#rate_book').on('change', function () {
+        $.ajax({
+            url: '{% url 'book:book-rate' %}',
+            type: 'POST',
+            data: {
+                'book_id': $(this).attr('data-id'),
+                'csrfmiddlewaretoken': csrf_value,
+                'rate': $(this).val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Books system</title>
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link href="{% static 'css/assets.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{% static 'css/fontawesome/css/all.css' %}" />
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+</head>
+
+<body id="welcome-to-our-store" class="template-index" style="background: #f6f6f6;">
+    <div id="wrapper">
+        <div id="">
+            <!-- HEADER -->
+            <header id="header">
+                <div class="header_row__1">
+                    <div class="container">
+                        <a href="{% url 'admin:admin-book-list' %}" class="header_link__home"><i class="fa fa-home"></i></a>
+                        <!-- USER MENU -->
+                        <ul class="header_user">
+                            {% if user.is_authenticated and user.is_superuser %}
+                            <li class="icon_lock"><a href="{% url 'admin:admin-logout' %}" id="customer_login_link">Log out</a></li>
+                            <li class="icon_user"><a href="#" id="customer_account">{{ user.username }}</a></li>
+                            {% endif %}
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="header_row__2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 col-lg-3">
+                                <!-- LOGO -->
+                                <div id="logo">
+                                    <a href="{% url 'admin:admin-book-list' %}"><b>BOOKS</b><span>Admin System</span></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                {% if user.is_authenticated and user.is_superuser %}
+                <!-- MEGAMENU -->
+                <div id="megamenu">
+                    <div class="container">
+                        <ul class="sf-menu megamenu_desktop visible-md visible-lg">
+                            <li class="megamenu__1">
+                                <a href="{% url 'admin:admin-book-list' %}">Book List</a>
+                            </li>
+                            <li class="megamenu__2">
+                                <a href="{% url 'admin:admin-book-list' %}">List User</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+            </header>
+
+            <!-- MAIN CONTENT -->
+            <div class="container">
+                <div class="row sidebar_left sidebar_off">
+                    <div class="column_center">
+                        <div id="main_content" class="col-sm-12">
+                            <div class="index-scope">
+                                <h2 class="page_heading"></h2> {% block content %} {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="copyright">
+            <div class="container">
+                <p role="contentinfo">© 2020 BOOKS. All Rights Reserved.Powered by NguyenvandungC</a>.</p>
+            </div>
+        </div>
+    </footer>
+    </div>
+<script type="text/javascript">
+    $("#menu_category a").hover(function() {
+        $(this).parent().addClass('open');
+    });
+
+    $("#menu_category .dropdown-menu").mouseleave(function() {
+       $("#menu_category").removeClass('open');
+    });
+</script>
+
+{% include 'modal.html' %}
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

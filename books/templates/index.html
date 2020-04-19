@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="product_listing_main homepage_carousel row" style="padding-bottom: 15px;">
+
+    {% for book in books %}
+    <div class="col-sm-3 col-md-3 product product__{{ book.id }}">
+        <div>
+            <div class="product_img">
+                <a class="img_change" href="{% url 'book:book-detail' book_id=book.id %}">
+                    <img src="{{ book.image.url}}" alt="{{ book.name }}" class="img-responsive" />
+                </a>
+                <span class="product_badge new"><span>New</span></span>
+            </div>
+
+            <div class="product_info">
+                <div class="product_name">
+                    <a href="{% url 'book:book-detail' book_id=book.id %}">{{ book.name }}</a>
+                </div>
+
+                <div class="product_desc">{{ book.author }}</div>
+                <div class="product_name">
+                    <a href="{% url 'book:book-detail' book_id=book.id %}">{{ book.publish_date }}</a>
+                </div>
+
+                <div class="product_price">
+
+                    <span class="money money-sale">{{ book.price }}đ</span>
+
+                        <input type="hidden" name="book_id" value="{{ book.id }}" />
+                        <span class="money" style="float: right;">{{ book.count_follow }} </span>
+
+                        <button class="btn btn-cart" type="submit"><i class="fa fa-heart" aria-hidden="true"></i></button>
+                        <span class="money" style="float: right;">{{ book.get_avg_rate }} </span>
+
+                        <button class="btn btn-cart" type="submit"><i class="fa fa-star" aria-hidden="true"></i></button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
