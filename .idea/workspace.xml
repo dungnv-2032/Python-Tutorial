@@ -4,18 +4,8 @@
     <list default="true" id="72de7e0b-2967-447c-a0b0-88fcce888f9c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin_book_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/templates/admin_book_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/templates/admin_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/templates/admin_login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/books/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/books/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/images/0.000000000000000000000TgvFNBub.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/show_form_errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/show_form_errors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/show_message_errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/show_message_errors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorial/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/tutorial/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +103,7 @@
       <workItem from="1587461955686" duration="10089000" />
       <workItem from="1587537679362" duration="28547000" />
       <workItem from="1587633472187" duration="1840000" />
-      <workItem from="1587650251962" duration="14182000" />
+      <workItem from="1587650251962" duration="15347000" />
     </task>
     <servers />
   </component>

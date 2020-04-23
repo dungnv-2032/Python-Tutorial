@@ -40,16 +40,9 @@
                                 <input type="password" value="" name="password2" id="password2" class="form-control password" size="30">
                             </div>
                         </div>
-                        {% if errors %}
-                        <div class="alert alert-danger" role="alert">
-                            <div id="errors">
-                                <div class="inner">
-                                    <p>There were some errors in the information you entered. Please correct the following:</p>
-                                    {{ errors }}
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
+
+                        {% include 'show_form_errors.html' %}
+
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-4">
                                 <input class="btn btn-primary" type="submit" value="Create">

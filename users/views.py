@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, HttpResponseRedirect
 from .forms import LoginForm, RegisterForm
 from django.contrib import messages
+from django.urls import reverse
 
 
 def logout_view(request):
@@ -55,4 +56,5 @@ class RegisterView(View):
             login(request, user)
 
             return redirect('book:index')
-        return render(request, self.template_name, {'errors': register_form.errors})
+
+        return render(request, self.template_name, {'form': register_form})
