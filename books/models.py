@@ -100,11 +100,11 @@ class Book_Request(models.Model):
     ACCEPT = 1
     REJECT = 2
 
-    STATUS_REQUEST = [
+    STATUS_REQUEST = (
         'Pending',
         'Accept',
         'Reject'
-    ]
+    )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=500)

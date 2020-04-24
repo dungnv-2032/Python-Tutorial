@@ -7,7 +7,6 @@ from django.urls import reverse
 
 
 def admin_required(function):
-    template_name = 'admin_login.html'
 
     def wrapper(request, *args, **kwargs):
 

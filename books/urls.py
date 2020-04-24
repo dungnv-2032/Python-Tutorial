@@ -24,7 +24,7 @@ app_name = 'book'
 
 urlpatterns = [
     path('', BookListView.as_view(), name='index'),
-    path('<int:book_id>/', BookDetailView.as_view(), name='book-detail'),
+    path('book-detail/<int:book_id>/', BookDetailView.as_view(), name='book-detail'),
     path('book-category/<int:id>/', BookCategoryView.as_view(), name='book-category-search'),
     path('book-search/', BookSearchView.as_view(), name='book-search'),
     path('book-history/', BookHistoryView.as_view(), name='book-history'),

@@ -1,0 +1,110 @@
+{% extends 'base_admin.html' %} {% block content %}
+
+<div class="product_listing_main homepage_carousel row" style="padding-bottom: 15px;">
+    <div class="row" style="text-align: center;">
+        <h3>List Request Book</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover" style="background: white;border: solid 1px #a1a1a1;">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                    <tr id="row-{{ request.id }}">
+                        <th scope="row">{{ request.id }}</th>
+                        <td>{{ request.name }}</td>
+                        <td>{{ request.price }}</td>
+                        <td>{{ request.category.name}}</td>
+                        <td>{{ request.note }}</td>
+                        <td>{{ request.created_at }}</td>
+                        <td id="row-status-{{ request.id }}">{{ request.get_status }}</td>
+                        <td>
+                            <button id="button-confirm-delete" class="btn btn-danger" data-id="{{ request.id }}" data-toggle="modal" data-target="#confirm-delete">Delete</button>
+                            <span id="div-action-status-{{ request.id }}">
+                                {% if request.status == 0 %}
+                                <button class="btn btn-primary" id="update_request" action="1" method="put" data-id="{{ request.id }}">Accept</button>
+                                <button class="btn btn-warning" id="update_request" action="2" method="put" data-id="{{ request.id }}">Reject</button>
+                                {% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            {% include 'paginator.html' with obj_page=requests only %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).on('click', '#button-confirm-delete', function(){
+        $('#confirm-delete .btn-ok').attr('data-id', $(this).attr('data-id'));
+    });
+
+    $(document).on('click', '#update_request', function(){
+        let el = document.getElementsByName("csrfmiddlewaretoken");
+        let csrf_value = el[0].getAttribute("value");
+        let request_id = $(this).attr('data-id');
+        let action = $(this).attr('action');
+        let method = $(this).attr('method');
+
+        $.ajax({
+            url: '{% url 'admin:admin-request-book' %}',
+            type: 'POST',
+            data: {
+                'action': action,
+                'request_id': request_id,
+                'csrfmiddlewaretoken': csrf_value,
+                '_method': method,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    $('#row-status-'+request_id).text(data.status);
+                    $('#div-action-status-'+request_id).remove();
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#confirm-delete .btn-ok', function(){
+        let el = document.getElementsByName("csrfmiddlewaretoken");
+        let csrf_value = el[0].getAttribute("value");
+        let request_id = $(this).attr('data-id');
+        $.ajax({
+            url: '{% url 'admin:admin-request-book' %}',
+            type: 'POST',
+            data: {
+                'request_id': $(this).attr('data-id'),
+                'csrfmiddlewaretoken': csrf_value,
+                '_method': $('#method').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 'success') {
+                    window.$('#confirm-delete')
+                        .one('hidden.bs.modal', () => {
+                            $('.product_listing_main #row-'+request_id).remove();
+                        })
+                        .modal('hide');
+                }
+            }
+        });
+    });
+
+</script>
+
+{% endblock %}

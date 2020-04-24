@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
@@ -13,14 +13,22 @@ class AdminLoginForm(forms.Form):
 
 
 class AddBookForm(forms.ModelForm):
-    #
-    # def form_valid(self, form):
-    #     # This method is called when valid form data has been POSTed.
-    #     # It should return an HttpResponse.
-    #     return super().form_valid(form)
 
     class Meta:
         model = Book
         fields = ['name', 'category', 'description', 'author', 'price', 'publish_date', 'number_page', 'image']
 
+
+class AddUserForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+
+class UpdateUserForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
