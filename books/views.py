@@ -32,19 +32,11 @@ def get_book_detail(request, *args, **kwargs):
         user=user,
     )
 
-    follow_status = book.FOLLOW_STATUS[1][1]
-    if book_history.follow_status == book.FOLLOW_STATUS[1][0]:
-        follow_status = book.FOLLOW_STATUS[0][1]
-
-    like_status = book.LIKE_STATUS[1][1]
-    if book_history.like_status == book.LIKE_STATUS[1][0]:
-        like_status = book.LIKE_STATUS[0][1]
-
     context = {
         'book': book,
         'book_history': book_history,
-        'follow_status': follow_status,
-        'like_status': like_status,
+        'follow_status': book_history.get_follow_status(),
+        'like_status': book_history.get_like_status(),
     }
     return context
 
@@ -114,22 +106,21 @@ class BookFollowView(LoginRequiredMixin, View):
             user=user,
         )
 
-        unfollow_status = 0
+        unfollow_status = Book.UNFOLLOW
         follow_status = book_history.follow_status
         if follow_status == unfollow_status:
-            follow_status = 1;
+            follow_status = Book.FOLLOW;
         else:
             follow_status = unfollow_status
         book_history.follow_status = follow_status
         book_history.save()
 
-        index_status = 0
+        index_status = Book.UNFOLLOW
         if index_status == follow_status:
-            index_status = 1
-
+            index_status = Book.FOLLOW
         response = {
             'code': 'success',
-            'follow_status': Book.FOLLOW_STATUS[index_status][1]
+            'follow_status': Book.FOLLOW_STATUS[index_status]
         }
         return JsonResponse(response)
 
@@ -146,22 +137,22 @@ class BookLikeView(LoginRequiredMixin, View):
             user=user,
         )
 
-        unlike_status = 0
+        unlike_status = Book.UNLIKE
         like_status = book_history.like_status
         if like_status == unlike_status:
-            like_status = 1;
+            like_status = Book.LIKE;
         else:
             like_status = unlike_status
         book_history.like_status = like_status
         book_history.save()
 
-        index_status = 0
+        index_status = Book.UNLIKE
         if index_status == like_status:
-            index_status = 1
+            index_status = Book.LIKE
 
         response = {
             'code': 'success',
-            'like_status': Book.LIKE_STATUS[index_status][1]
+            'like_status': Book.LIKE_STATUS[index_status]
         }
         return JsonResponse(response)
 
@@ -184,7 +175,7 @@ class BookReadView(LoginRequiredMixin, View):
 
         response = {
             'code': 'success',
-            'read_status': 1,
+            'read_status': Book.READING,
         }
         return JsonResponse(response)
 
@@ -270,7 +261,6 @@ class AddBookComment(LoginRequiredMixin, View):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
         kwargs['book_id'] = request.POST['book_id']
-        context = get_book_detail(request, *args, **kwargs)
 
         add_comment_form = self.form_class(request.POST)
         if add_comment_form.is_valid():

@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.db.models import Avg
-from django.urls import reverse
 
 
 class Category(models.Model):
@@ -14,7 +13,29 @@ class Category(models.Model):
         return self.name
 
 
-class Book(models.Model):
+class BookBase(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Book(BookBase):
+
+    UNFOLLOW = 0
+    FOLLOW = 1
+    FOLLOW_STATUS = (
+        'Unfollow',
+        'Follow'
+    )
+
+    UNLIKE = 0
+    LIKE = 1
+    LIKE_STATUS = (
+        'Unlike',
+        'Like'
+    )
 
     UNREAD = 0
     READING = 1
@@ -25,25 +46,19 @@ class Book(models.Model):
         (READ, 'Read'),
     )
 
-    UNFOLLOW = 0
-    FOLLOW = 1
-    FOLLOW_STATUS = (
-        (UNFOLLOW, 'Unfollow'),
-        (FOLLOW, 'Follow')
-    )
-
-    LIKE_STATUS = (
-        (0, 'Unlike'),
-        (1, 'Like')
-    )
-
+    UNRATE = 0
+    BAD = 1
+    NORMAL = 2
+    GOOD = 3
+    VERY_GOOD = 4
+    SUPER_GOOD = 5
     RATE = (
-        (0, 'Unrate'),
-        (1, 'Bad'),
-        (2, 'Normal'),
-        (3, 'Good'),
-        (4, 'Very Good'),
-        (5, 'Super Good')
+        (UNRATE, 'Unrate'),
+        (BAD, 'Bad'),
+        (NORMAL, 'Normal'),
+        (GOOD, 'Good'),
+        (VERY_GOOD, 'Very Good'),
+        (SUPER_GOOD, 'Super Good')
     )
 
     name = models.CharField(max_length=500)
@@ -54,8 +69,6 @@ class Book(models.Model):
     publish_date = models.DateField()
     image = models.ImageField(verbose_name='image', upload_to='images/')
     number_page = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -63,7 +76,7 @@ class Book(models.Model):
     def count_follow(self):
         return Book_History.objects.filter(
             book=self,
-            follow_status=self.FOLLOW_STATUS[1][0]
+            follow_status=Book_History.FOLLOW
         ).count()
 
     def get_avg_rate(self):
@@ -78,8 +91,11 @@ class Book(models.Model):
     def get_book_comments(self):
         return self.book_comment_set
 
+    def get_abc(self):
+        self.book_history_set
 
-class Book_History(models.Model):
+
+class Book_History(BookBase):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -87,14 +103,24 @@ class Book_History(models.Model):
     read_status = models.IntegerField(default=0)
     like_status = models.BooleanField(default=False)
     follow_status = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = [['user', 'book']]
 
+    def get_follow_status(self):
+        follow_status = Book.FOLLOW_STATUS[Book.FOLLOW]
+        if self.follow_status == Book.FOLLOW:
+            follow_status = Book.FOLLOW_STATUS[Book.UNFOLLOW]
+        return follow_status
 
-class Book_Request(models.Model):
+    def get_like_status(self):
+        like_status = Book.LIKE_STATUS[Book.LIKE]
+        if self.like_status == Book.LIKE:
+            like_status = Book.LIKE_STATUS[Book.UNLIKE]
+        return like_status
+
+
+class Book_Request(BookBase):
 
     PENDING = 0
     ACCEPT = 1
@@ -112,17 +138,13 @@ class Book_Request(models.Model):
     note = models.TextField()
     price = models.IntegerField()
     status = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def get_status(self):
         return self.STATUS_REQUEST[self.status]
 
 
-class Book_Comment(models.Model):
+class Book_Comment(BookBase):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     comment = models.TextField()
     parent_id = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)

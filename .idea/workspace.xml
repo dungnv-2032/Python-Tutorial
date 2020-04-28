@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="72de7e0b-2967-447c-a0b0-88fcce888f9c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/books/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/books/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/books/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/books/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/images/1_1_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base_admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tutorial/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/tutorial/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/books/templates/book_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/books/templates/book_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/books/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/books/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +104,8 @@
       <workItem from="1587537679362" duration="28547000" />
       <workItem from="1587633472187" duration="1840000" />
       <workItem from="1587650251962" duration="18836000" />
-      <workItem from="1587713179137" duration="17505000" />
+      <workItem from="1587713179137" duration="18262000" />
+      <workItem from="1588089530980" duration="5111000" />
     </task>
     <servers />
   </component>
@@ -176,19 +170,19 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="450" y="200" width="540" height="524" key="StructurePopup/0.23.1440.877/1440.23.1920.1057@0.23.1440.877" timestamp="1587312648454" />
-    <state x="399" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1587713180186">
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1588089922587">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877/1440.23.1920.1057@0.23.1440.877" timestamp="1587650261097" />
-    <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1587713180186" />
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1588089922587" />
     <state x="509" y="385" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587489162728">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="509" y="385" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1587489162728" />
-    <state x="386" y="97" width="816" height="729" key="find.popup" timestamp="1587634285704">
+    <state x="386" y="97" width="816" height="729" key="find.popup" timestamp="1588093775046">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="386" y="97" width="816" height="729" key="find.popup/0.23.1440.877@0.23.1440.877" timestamp="1587634285704" />
+    <state x="386" y="97" width="816" height="729" key="find.popup/0.23.1440.877@0.23.1440.877" timestamp="1588093775046" />
     <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1587310856622">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

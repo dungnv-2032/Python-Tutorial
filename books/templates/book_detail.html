@@ -112,7 +112,7 @@
             url: '{% url 'book:book-read' %}',
             type: 'POST',
             data: {
-                'book_id': $(this).attr('data-id'), 
+                'book_id': $(this).attr('data-id'),
                 'csrfmiddlewaretoken': csrf_value,
                 'read_status': $(this).val(),
             },
