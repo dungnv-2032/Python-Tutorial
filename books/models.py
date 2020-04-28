@@ -76,7 +76,7 @@ class Book(BookBase):
     def count_follow(self):
         return Book_History.objects.filter(
             book=self,
-            follow_status=Book_History.FOLLOW
+            follow_status=Book.FOLLOW
         ).count()
 
     def get_avg_rate(self):
@@ -90,9 +90,6 @@ class Book(BookBase):
 
     def get_book_comments(self):
         return self.book_comment_set
-
-    def get_abc(self):
-        self.book_history_set
 
 
 class Book_History(BookBase):
